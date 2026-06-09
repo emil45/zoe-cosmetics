@@ -1,11 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import { Heebo } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { StickyActions } from "@/components/StickyActions";
 import { JsonLd } from "@/components/JsonLd";
-import { localBusinessSchema } from "@/lib/schema";
+import { localBusinessSchema, websiteSchema } from "@/lib/schema";
 import { site } from "@/lib/content";
+import { isIndexable } from "@/lib/site-url";
 import "./globals.css";
 
 const heebo = Heebo({
@@ -23,9 +25,9 @@ export const metadata: Metadata = {
   },
   description: site.description,
   applicationName: site.name,
-  alternates: {
-    canonical: "/"
-  },
+  // NOTE: no default `alternates.canonical` here on purpose — Next.js inherits
+  // it into every child route, which would collapse all pages to the homepage.
+  // Each page sets its own self-referencing canonical via buildMetadata().
   openGraph: {
     type: "website",
     locale: site.locale,
@@ -48,10 +50,11 @@ export const metadata: Metadata = {
     description: site.description,
     images: [site.image]
   },
-  robots: {
-    index: true,
-    follow: true
-  }
+  // Indexable only once the real domain is configured (NEXT_PUBLIC_SITE_URL).
+  // Until then the temporary *.vercel.app deployment is kept out of the index.
+  robots: isIndexable()
+    ? { index: true, follow: true }
+    : { index: false, follow: false }
 };
 
 export const viewport: Viewport = {
@@ -68,12 +71,16 @@ export default function RootLayout({
   return (
     <html dir="rtl" lang="he" className={heebo.variable}>
       <body className="font-sans">
-        <JsonLd data={localBusinessSchema()} />
+        <JsonLd data={[localBusinessSchema(), websiteSchema()]} />
         <Header />
         <main>{children}</main>
         <Footer />
         <StickyActions />
       </body>
+      {/* GA4 — loaded only on deployed builds, never in local dev. */}
+      {process.env.NODE_ENV === "production" && site.gaId ? (
+        <GoogleAnalytics gaId={site.gaId} />
+      ) : null}
     </html>
   );
 }

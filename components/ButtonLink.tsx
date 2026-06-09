@@ -18,7 +18,7 @@ export function ButtonLink({
   const base =
     "focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold tracking-wide transition duration-200";
   const styles = {
-    primary: "bg-ink text-porcelain hover:bg-ink/85 shadow-sm",
+    primary: "bg-[#b88d66] text-porcelain hover:bg-[#b88d66]/90 shadow-sm",
     secondary:
       "border border-ink/12 bg-white text-ink hover:border-clay/40 hover:bg-ivory",
     plain: "text-clay hover:text-ink"

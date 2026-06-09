@@ -1,22 +1,48 @@
-import type { Metadata } from "next";
 import { ContactPanel } from "@/components/ContactPanel";
+import { JsonLd } from "@/components/JsonLd";
 import { PageIntro } from "@/components/PageIntro";
 import { SectionHeading } from "@/components/SectionHeading";
 import { TreatmentGrid } from "@/components/TreatmentGrid";
-import { series, treatments } from "@/lib/content";
+import { series, site, treatments } from "@/lib/content";
+import { buildMetadata } from "@/lib/seo";
+import { breadcrumbSchema } from "@/lib/schema";
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: "טיפולים",
   description:
-    "סדרות HIFU, RF, פלזמה, מיקרונידלינג, Glow ועור אקנאי — לצד טיפולי פנים קלסיים, הסרת סרחי עור וטיפול אנטי-אייג'ינג הדרגתי."
-};
+    "סדרות HIFU, RF, פלזמה, מיקרונידלינג, Glow ועור אקנאי — לצד טיפולי פנים קלסיים, הסרת סרחי עור וטיפול אנטי-אייג'ינג הדרגתי.",
+  path: "/treatments"
+});
 
 export default function TreatmentsPage() {
   const allKeywords = [...series, ...treatments].flatMap((item) => item.keywords);
   const uniqueKeywords = [...new Set(allKeywords)].slice(0, 14);
 
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "טיפולי עור בקליניקת זואי פייסחוב",
+    itemListElement: [...series, ...treatments].map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.title,
+      url: item.fullText
+        ? `${site.url}/treatments/${item.slug}`
+        : `${site.url}/treatments#${item.slug}`
+    }))
+  };
+
   return (
     <>
+      <JsonLd
+        data={[
+          breadcrumbSchema([
+            { name: "בית", url: site.url },
+            { name: "טיפולים", url: `${site.url}/treatments` }
+          ]),
+          itemListSchema
+        ]}
+      />
       <PageIntro
         eyebrow="טיפולים"
         title="טיפולי עור מתקדמים שנבחרים לפי אבחון, לא לפי אופנה."
@@ -61,6 +87,22 @@ export default function TreatmentsPage() {
           </div>
         </div>
       </div>
+
+      <section className="container-page pb-16">
+        <div className="mb-6 flex items-center gap-3">
+          <span aria-hidden className="block h-px w-6 shrink-0 bg-clay/50" />
+          <p className="text-[11px] font-semibold uppercase tracking-widest text-clay/70">
+            HIFU בפעולה
+          </p>
+        </div>
+        <video
+          className="w-full overflow-hidden rounded-3xl shadow-soft"
+          controls
+          playsInline
+        >
+          <source src="/assets/hifu.mp4" type="video/mp4" />
+        </video>
+      </section>
 
       <ContactPanel />
     </>

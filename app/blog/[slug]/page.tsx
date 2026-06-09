@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
 import { site, posts, series, treatments } from "@/lib/content";
 import { articleSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
+import { buildMetadata } from "@/lib/seo";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -21,22 +22,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {};
   }
 
-  return {
+  return buildMetadata({
     title: post.title,
     description: post.excerpt,
-    alternates: {
-      canonical: `/blog/${post.slug}`
-    },
-    openGraph: {
-      type: "article",
-      locale: site.locale,
-      title: post.title,
-      description: post.excerpt,
-      url: `${site.url}/blog/${post.slug}`,
-      publishedTime: post.date,
-      authors: [post.author]
-    }
-  };
+    path: `/blog/${post.slug}`,
+    type: "article",
+    publishedTime: post.date,
+    authors: [post.author]
+  });
 }
 
 export default async function BlogPostPage({ params }: PageProps) {
@@ -132,7 +125,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               {relatedTreatments.map((item) => (
                 <Link
                   className="focus-ring rounded-md bg-white px-4 py-3 text-sm font-semibold leading-6 text-ink/68 hover:text-olive"
-                  href={`/treatments#${item.slug}`}
+                  href={item.fullText ? `/treatments/${item.slug}` : `/treatments#${item.slug}`}
                   key={item.slug}
                 >
                   {item.title}

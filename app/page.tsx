@@ -6,13 +6,21 @@ import { ContactPanel } from "@/components/ContactPanel";
 import { SectionHeading } from "@/components/SectionHeading";
 import { TestimonialCards } from "@/components/TestimonialCards";
 import { TreatmentGrid } from "@/components/TreatmentGrid";
-import { results, series, site, stats, trustItems } from "@/lib/content";
+import { series, site, stats, trustItems } from "@/lib/content";
+import { buildMetadata } from "@/lib/seo";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = buildMetadata({
+  description: site.description,
+  path: "/",
+  ogTitle: `${site.cosmetician} | טיפולי עור מתקדמים בישראל`
+});
 
 export default function Home() {
   return (
     <>
       {/* ─── Hero ─────────────────────────────────────────────────── */}
-      <section className="container-page grid min-h-[calc(100svh-64px)] items-center gap-10 py-12 md:grid-cols-[1.05fr_0.95fr] md:py-16">
+      <section className="container-page grid min-h-svh items-center gap-10 pb-12 pt-28 md:grid-cols-[1.05fr_0.95fr] md:pb-16 md:pt-32">
         <div className="order-2 animate-fade-up md:order-1">
           <div className="mb-6 flex items-center gap-3">
             <span aria-hidden className="block h-px w-8 shrink-0 bg-clay/60" />
@@ -22,7 +30,7 @@ export default function Home() {
           </div>
 
           <h1 className="max-w-[560px] text-[2.6rem] font-bold leading-[1.1] text-ink md:text-[3.4rem]">
-            טיפולי עור מדויקים לנשים שרוצות תוצאה נקייה, טבעית ובטוחה.
+            עור בריא יותר מתחיל באבחון מדויק.
           </h1>
 
           <p className="mt-6 max-w-[480px] text-[15px] leading-[1.9] text-ink/58">
@@ -63,12 +71,6 @@ export default function Home() {
               sizes="(min-width: 768px) 46vw, 100vw"
               src="/assets/hero.png"
             />
-          </div>
-          <div className="absolute bottom-6 right-6 max-w-[220px] rounded-2xl bg-white/95 p-4 shadow-soft backdrop-blur">
-            <p className="text-[13px] font-bold text-ink">אבחון לפני החלטה</p>
-            <p className="mt-1.5 text-[12px] leading-[1.7] text-ink/55">
-              כל טיפול מתחיל בהבנת מצב העור, לא בבחירת מכשיר.
-            </p>
           </div>
         </div>
       </section>
@@ -150,48 +152,11 @@ export default function Home() {
             title="פתרונות מתקדמים שמותאמים לעור, למטרה ולקצב שלך."
             text="מיצוק, חידוש, פיגמנטציה, טיפולי פנים ותוכניות אישיות בגישה שמכבדת את העור."
           />
-          <TreatmentGrid data={series} limit={6} />
+          <TreatmentGrid data={series} limit={6} readMoreHref="/treatments" />
           <div className="mt-8">
             <ButtonLink href="/treatments" variant="secondary">
               לכל הטיפולים
             </ButtonLink>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── Results (dark) ───────────────────────────────────────── */}
-      <section className="bg-ink py-14 text-porcelain md:py-24">
-        <div className="container-page grid gap-12 md:grid-cols-[0.9fr_1.1fr]">
-          <div>
-            <div className="mb-4 flex items-center gap-3">
-              <span aria-hidden className="block h-px w-6 shrink-0 bg-sage/40" />
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-sage/70">
-                תוצאות
-              </p>
-            </div>
-            <h2 className="text-[1.75rem] font-bold leading-tight md:text-[2.25rem]">
-              תהליך מכבד, תוצאות שנראות כמו את ביום טוב יותר.
-            </h2>
-            <p className="mt-5 text-[15px] leading-[1.9] text-porcelain/50">
-              הצגת תוצאות נעשית בצניעות ובאישור הלקוחה. המטרה היא להבין מה
-              אפשר להשיג בפועל, בלי דרמה ובלי עריכה שמטשטשת את המציאות.
-            </p>
-          </div>
-          <div className="grid gap-3">
-            {results.map((item, i) => (
-              <div
-                className="flex items-start gap-4 rounded-2xl border border-white/8 bg-white/4 p-5"
-                key={item}
-              >
-                <span
-                  aria-hidden
-                  className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-sage/25 text-[10px] font-bold text-sage/80"
-                >
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <p className="text-sm leading-[1.9] text-porcelain/70">{item}</p>
-              </div>
-            ))}
           </div>
         </div>
       </section>
@@ -217,11 +182,11 @@ export default function Home() {
         <div className="container-page grid gap-12 md:grid-cols-[0.95fr_1.05fr]">
           <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-linen shadow-soft">
             <Image
-              alt="חדר טיפול קוסמטי אלגנטי ונקי"
+              alt="מוצרי טיפוח מקצועיים בקליניקת זואי פייסחוב"
               className="object-cover"
               fill
               sizes="(min-width: 768px) 44vw, 100vw"
-              src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=1200&q=82"
+              src="/assets/beauty_products.png"
             />
           </div>
           <div className="self-center">

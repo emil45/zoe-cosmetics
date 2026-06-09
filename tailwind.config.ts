@@ -18,7 +18,8 @@ const config: Config = {
         olive: "#6f735f",
         sage: "#b8c0aa",
         blush: "#c8a8a0",
-        rose: "#c49a96"
+        rose: "#c49a96",
+        rouge: "#8b6058"
       },
       fontFamily: {
         sans: ["var(--font-heebo)", "Heebo", "Assistant", "Arial", "sans-serif"],

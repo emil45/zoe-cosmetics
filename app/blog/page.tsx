@@ -1,16 +1,26 @@
-import type { Metadata } from "next";
 import { BlogCards } from "@/components/BlogCards";
+import { JsonLd } from "@/components/JsonLd";
 import { PageIntro } from "@/components/PageIntro";
+import { site } from "@/lib/content";
+import { buildMetadata } from "@/lib/seo";
+import { breadcrumbSchema } from "@/lib/schema";
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: "בלוג",
   description:
-    "מאמרים מקצועיים בעברית על HIFU, RF, טיפולי פנים, שגרת טיפוח, פיגמנטציה ובחירת קוסמטיקאית מקצועית."
-};
+    "מאמרים מקצועיים בעברית על HIFU, RF, טיפולי פנים, שגרת טיפוח, פיגמנטציה ובחירת קוסמטיקאית מקצועית.",
+  path: "/blog"
+});
 
 export default function BlogPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "בית", url: site.url },
+          { name: "בלוג", url: `${site.url}/blog` }
+        ])}
+      />
       <PageIntro
         eyebrow="בלוג"
         title="מדריכים קצרים שעוזרים לבחור טיפולי עור בצורה רגועה ומבוססת."

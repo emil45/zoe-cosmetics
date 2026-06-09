@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { MessageCircle, Phone } from "lucide-react";
 import { ButtonLink } from "@/components/ButtonLink";
 import { site } from "@/lib/content";
@@ -7,6 +8,16 @@ export function ContactPanel() {
     <section className="bg-ivory/60 py-14 md:py-24" id="contact">
       <div className="container-page grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
         <div>
+          <div className="relative mb-7 aspect-[4/3] overflow-hidden rounded-2xl bg-linen shadow-card">
+            <Image
+              alt="קליניקת זואי פייסחוב — חדר טיפול"
+              className="object-cover object-top"
+              fill
+              sizes="(min-width: 1024px) 44vw, 100vw"
+              src="/assets/room.png"
+            />
+          </div>
+
           <div className="mb-4 flex items-center gap-3">
             <span aria-hidden className="block h-px w-6 shrink-0 bg-clay/50" />
             <p className="text-[11px] font-semibold uppercase tracking-widest text-clay">

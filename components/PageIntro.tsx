@@ -6,7 +6,7 @@ type PageIntroProps = {
 
 export function PageIntro({ eyebrow, title, text }: PageIntroProps) {
   return (
-    <section className="container-page pb-10 pt-14 md:pb-14 md:pt-20">
+    <section className="container-page animate-fade-up pb-10 pt-14 md:pb-14 md:pt-20">
       {eyebrow ? (
         <div className="mb-5 flex items-center gap-3">
           <span aria-hidden className="block h-px w-6 shrink-0 bg-clay/50" />

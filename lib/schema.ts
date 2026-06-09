@@ -1,43 +1,63 @@
-import { Post, site, testimonials } from "@/lib/content";
+import { Post, TreatmentItem, site } from "@/lib/content";
+
+/** Stable @id for the business entity so all schemas reference one node. */
+const businessId = `${site.url}/#business`;
+
+/** Resolve a possibly-relative asset path to an absolute URL for JSON-LD. */
+function absoluteUrl(path: string) {
+  return path.startsWith("http") ? path : `${site.url}${path}`;
+}
 
 export function localBusinessSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "BeautySalon",
+    "@id": businessId,
     name: site.name,
+    alternateName: site.cosmetician,
     description: site.description,
     url: site.url,
-    telephone: site.phone,
+    telephone: site.phoneHref.replace("tel:", ""),
+    email: site.email,
+    image: absoluteUrl(site.image),
+    logo: absoluteUrl(site.image),
     address: {
       "@type": "PostalAddress",
-      addressCountry: "IL",
-      addressLocality: site.address
+      // site.address = "אשדוד, שבט יוסף" (city, street)
+      streetAddress: "שבט יוסף",
+      addressLocality: "אשדוד",
+      addressRegion: "מחוז הדרום",
+      addressCountry: "IL"
     },
-    areaServed: {
-      "@type": "Country",
-      name: "Israel"
-    },
+    areaServed: [
+      { "@type": "City", name: "אשדוד" },
+      { "@type": "Country", name: "Israel" }
+    ],
     priceRange: "$$$",
-    image: site.image,
-    sameAs: [site.whatsapp],
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.9",
-      reviewCount: testimonials.length.toString()
+    currenciesAccepted: "ILS",
+    knowsLanguage: ["he-IL", "ru-RU"],
+    founder: {
+      "@type": "Person",
+      name: site.cosmetician,
+      jobTitle: "קוסמטיקאית מקצועית"
     },
-    review: testimonials.map((item) => ({
-      "@type": "Review",
-      author: {
-        "@type": "Person",
-        name: item.name
-      },
-      reviewBody: item.quote,
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: "5",
-        bestRating: "5"
-      }
-    }))
+    sameAs: [site.whatsapp]
+    // TODO: add verified geo coordinates, openingHoursSpecification, and a
+    // Google Business Profile / Instagram URL in sameAs once confirmed by the
+    // business. Do not fabricate hours, coordinates, ratings, or reviews.
+  };
+}
+
+export function websiteSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${site.url}/#website`,
+    url: site.url,
+    name: site.name,
+    description: site.description,
+    inLanguage: "he-IL",
+    publisher: { "@id": businessId }
   };
 }
 
@@ -54,6 +74,24 @@ export function breadcrumbSchema(items: { name: string; url: string }[]) {
   };
 }
 
+export function serviceSchema(treatment: TreatmentItem) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType: treatment.title,
+    name: treatment.title,
+    description: treatment.short,
+    url: `${site.url}/treatments/${treatment.slug}`,
+    inLanguage: "he-IL",
+    category: "טיפולי עור קוסמטיים",
+    areaServed: [
+      { "@type": "City", name: "אשדוד" },
+      { "@type": "Country", name: "Israel" }
+    ],
+    provider: { "@id": businessId }
+  };
+}
+
 export function articleSchema(post: Post) {
   return {
     "@context": "https://schema.org",
@@ -67,10 +105,7 @@ export function articleSchema(post: Post) {
       "@type": "Person",
       name: post.author
     },
-    publisher: {
-      "@type": "Organization",
-      name: site.name
-    },
+    publisher: { "@id": businessId },
     mainEntityOfPage: `${site.url}/blog/${post.slug}`,
     keywords: post.keywords.join(", ")
   };
