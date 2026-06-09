@@ -11,12 +11,16 @@ type BuildMetadataOptions = {
   /** Full Open Graph title (no template applied). Defaults to `${title} | brand`. */
   ogTitle?: string;
   type?: "website" | "article";
-  /** Image path (relative paths are resolved against metadataBase). */
+  /** Custom share image (relative paths resolve against metadataBase). When
+   *  omitted, the branded 1200×630 default (`/assets/og.jpg`) is used. */
   image?: string;
   imageAlt?: string;
   publishedTime?: string;
   authors?: string[];
 };
+
+/** Branded landscape share image, sized for OG/Twitter/WhatsApp (1.91:1). */
+const DEFAULT_OG_IMAGE = { url: "/assets/og.jpg", width: 1200, height: 630 };
 
 /**
  * Centralized metadata builder so every indexable page ships a unique,
@@ -30,13 +34,19 @@ export function buildMetadata({
   path,
   ogTitle,
   type = "website",
-  image = site.image,
+  image,
   imageAlt = site.name,
   publishedTime,
   authors
 }: BuildMetadataOptions): Metadata {
   const resolvedOgTitle =
     ogTitle ?? (title ? `${title} | ${site.cosmetician}` : `${site.cosmetician} | ${site.name}`);
+
+  // Default to the branded 1200×630 image with explicit dims; for a custom
+  // page image, omit dims (orientation varies) and let scrapers infer them.
+  const ogImage = image
+    ? { url: image, alt: imageAlt }
+    : { ...DEFAULT_OG_IMAGE, alt: imageAlt };
 
   return {
     ...(title ? { title } : {}),
@@ -51,7 +61,7 @@ export function buildMetadata({
       title: resolvedOgTitle,
       description,
       url: `${site.url}${path === "/" ? "" : path}`,
-      images: [{ url: image, width: 1200, height: 800, alt: imageAlt }],
+      images: [ogImage],
       ...(publishedTime ? { publishedTime } : {}),
       ...(authors ? { authors } : {})
     },
@@ -59,7 +69,7 @@ export function buildMetadata({
       card: "summary_large_image",
       title: resolvedOgTitle,
       description,
-      images: [image]
+      images: [ogImage.url]
     }
   };
 }

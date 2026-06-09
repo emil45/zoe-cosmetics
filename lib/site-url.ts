@@ -21,16 +21,27 @@ function stripTrailingSlash(url: string) {
 }
 
 export function getBaseUrl(): string {
-  // Explicit override (e.g. staging on a different host).
+  // Explicit override always wins.
   if (process.env.NEXT_PUBLIC_SITE_URL) {
     return stripTrailingSlash(process.env.NEXT_PUBLIC_SITE_URL);
   }
-  // Local development.
-  if (process.env.NODE_ENV === "development") {
-    return "http://localhost:3000";
+  // Once live, canonicalize to the real production domain.
+  if (isIndexable()) {
+    return PRODUCTION_URL;
   }
-  // Every deployed build canonicalizes to the real production domain.
-  return PRODUCTION_URL;
+  // Pre-launch staging on Vercel: use the actual host the site is served from
+  // so canonical/OG/JSON-LD URLs (and the og:image) resolve to reachable files.
+  // (The production domain still serves the OLD site, so pointing there pre-launch
+  // would 404 the share-preview image.) Prefer the stable production *.vercel.app
+  // domain, then the per-deployment preview URL.
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+  }
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  // Local development.
+  return "http://localhost:3000";
 }
 
 /**

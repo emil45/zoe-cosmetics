@@ -10,9 +10,7 @@ export const metadata: Metadata = buildMetadata({
   title: "אודות",
   description:
     "הכירי את זואי פייסחוב, קוסמטיקאית מקצועית לטיפולי עור מתקדמים בגישה אישית, נקייה ואחראית.",
-  path: "/about",
-  image: "/assets/room_and_logo.png",
-  imageAlt: "קליניקת עור זואי פייסחוב"
+  path: "/about"
 });
 
 export default function AboutPage() {
