@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
-import { site, posts, treatments } from "@/lib/content";
+import { site, posts, series, treatments } from "@/lib/content";
 import { articleSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 
 type PageProps = {
@@ -47,7 +47,8 @@ export default async function BlogPostPage({ params }: PageProps) {
     notFound();
   }
 
-  const relatedTreatments = treatments.filter((item) =>
+  const allTreatmentItems = [...series, ...treatments];
+  const relatedTreatments = allTreatmentItems.filter((item) =>
     post.relatedTreatmentSlugs.includes(item.slug)
   );
   const relatedPosts = posts.filter((item) => item.slug !== post.slug).slice(0, 3);

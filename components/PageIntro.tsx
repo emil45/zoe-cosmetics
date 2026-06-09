@@ -6,14 +6,19 @@ type PageIntroProps = {
 
 export function PageIntro({ eyebrow, title, text }: PageIntroProps) {
   return (
-    <section className="container-page py-12 md:py-20">
+    <section className="container-page pb-10 pt-14 md:pb-14 md:pt-20">
       {eyebrow ? (
-        <p className="mb-4 text-sm font-bold text-olive">{eyebrow}</p>
+        <div className="mb-5 flex items-center gap-3">
+          <span aria-hidden className="block h-px w-6 shrink-0 bg-clay/50" />
+          <p className="text-[11px] font-semibold uppercase tracking-widest text-clay">
+            {eyebrow}
+          </p>
+        </div>
       ) : null}
-      <h1 className="max-w-3xl text-4xl font-bold leading-tight text-ink md:text-6xl">
+      <h1 className="max-w-[680px] text-[2.25rem] font-bold leading-tight text-ink md:text-[3rem]">
         {title}
       </h1>
-      <p className="mt-5 max-w-2xl text-lg leading-8 text-ink/68">{text}</p>
+      <p className="mt-5 max-w-2xl text-[15px] leading-[1.9] text-ink/58">{text}</p>
     </section>
   );
 }

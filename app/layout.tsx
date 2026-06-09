@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Heebo } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { StickyActions } from "@/components/StickyActions";
@@ -6,6 +7,13 @@ import { JsonLd } from "@/components/JsonLd";
 import { localBusinessSchema } from "@/lib/schema";
 import { site } from "@/lib/content";
 import "./globals.css";
+
+const heebo = Heebo({
+  subsets: ["hebrew", "latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-heebo",
+  display: "swap"
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -58,7 +66,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html dir="rtl" lang="he">
+    <html dir="rtl" lang="he" className={heebo.variable}>
       <body className="font-sans">
         <JsonLd data={localBusinessSchema()} />
         <Header />

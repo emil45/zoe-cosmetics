@@ -1,16 +1,20 @@
 import type { Metadata } from "next";
 import { ContactPanel } from "@/components/ContactPanel";
 import { PageIntro } from "@/components/PageIntro";
+import { SectionHeading } from "@/components/SectionHeading";
 import { TreatmentGrid } from "@/components/TreatmentGrid";
-import { treatments } from "@/lib/content";
+import { series, treatments } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "טיפולים",
   description:
-    "טיפולי HIFU, RF, אנטי אייג'ינג, טיפול פנים מקצועי, פיגמנטציה ותוכניות טיפול אישיות לעור הפנים."
+    "סדרות HIFU, RF, פלזמה, מיקרונידלינג, Glow ועור אקנאי — לצד טיפולי פנים קלסיים, הסרת סרחי עור וטיפול אנטי-אייג'ינג הדרגתי."
 };
 
 export default function TreatmentsPage() {
+  const allKeywords = [...series, ...treatments].flatMap((item) => item.keywords);
+  const uniqueKeywords = [...new Set(allKeywords)].slice(0, 14);
+
   return (
     <>
       <PageIntro
@@ -18,19 +22,37 @@ export default function TreatmentsPage() {
         title="טיפולי עור מתקדמים שנבחרים לפי אבחון, לא לפי אופנה."
         text="כל טיפול מותאם למצב העור, מטרה, רגישויות ושגרת החיים. כאן תמצאי את תחומי הטיפול המרכזיים בקליניקה."
       />
-      <section className="container-page pb-16">
-        <TreatmentGrid />
-        <div className="mt-10 rounded-lg border border-ink/10 bg-white/80 p-5 shadow-line">
+
+      <div className="container-page pb-16 grid gap-16">
+        <section>
+          <SectionHeading
+            eyebrow="סדרות טיפולים"
+            title="תוכניות טיפול מלאות לתוצאה מתמשכת."
+            text="כל סדרה בנויה כתוכנית מובנית — מספר טיפולים, קצב מתאים ומעקב לאורך הדרך."
+          />
+          <TreatmentGrid data={series} />
+        </section>
+
+        <section>
+          <SectionHeading
+            eyebrow="טיפולים בודדים"
+            title="טיפולים ממוקדים לצורך ספציפי."
+            text="טיפול יחיד בגישה מקצועית — לניקוי, חידוש, הסרה או טיפוח נקודתי."
+          />
+          <TreatmentGrid data={treatments} />
+        </section>
+
+        <div className="rounded-2xl border border-ink/8 bg-white p-7 shadow-card">
           <h2 className="text-2xl font-bold text-ink">איך בוחרים טיפול?</h2>
-          <p className="mt-3 max-w-3xl text-base leading-8 text-ink/66">
+          <p className="mt-4 max-w-3xl text-[15px] leading-[1.85] text-ink/60">
             מתחילים באבחון. לעיתים טיפול אחד מספיק כדי לשפר נוחות ומרקם, ולעיתים
             נכון לבנות סדרה שמשלבת כמה כלים. ההחלטה מתקבלת אחרי שמבינים את
             איכות העור, מטרות הטיפול והיכולת לשמור על שגרה בבית.
           </p>
           <div className="mt-5 flex flex-wrap gap-2">
-            {treatments.flatMap((item) => item.keywords).slice(0, 12).map((keyword) => (
+            {uniqueKeywords.map((keyword) => (
               <span
-                className="rounded-full bg-ivory px-3 py-1 text-xs font-semibold text-ink/64"
+                className="rounded-full bg-ivory px-3 py-1.5 text-[11px] font-semibold text-ink/55"
                 key={keyword}
               >
                 {keyword}
@@ -38,7 +60,8 @@ export default function TreatmentsPage() {
             ))}
           </div>
         </div>
-      </section>
+      </div>
+
       <ContactPanel />
     </>
   );
