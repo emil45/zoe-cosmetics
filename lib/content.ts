@@ -205,25 +205,53 @@ export const treatments: TreatmentItem[] = [
   }
 ];
 
-export const testimonials = [
+export type ReviewSource = "whatsapp" | "facebook";
+
+export type ReviewScreenshot = {
+  src: string;
+  source: ReviewSource;
+  alt: string;
+};
+
+// Add your real review screenshots here.
+// Drop image files into public/assets/reviews/ and reference them as "/assets/reviews/filename.jpg"
+// source: "whatsapp" | "facebook"
+export const reviewScreenshots: ReviewScreenshot[] = [
+  { src: "/assets/reviews/facebook-post-1.png", source: "facebook", alt: 'המלצת שלי בן זקן על זואי פייסחוב — "ידיי זהב ומפנקת פשוט חלום"' },
+  { src: "/assets/reviews/whatsapp-image-1.png", source: "whatsapp", alt: "המלצת לקוחה ברוסית על טיפול הפנים — מציינת מקצועיות, גישה אישית ותוצאות מרעננות" },
+  { src: "/assets/reviews/whatsapp-image-2.png", source: "whatsapp", alt: "המלצת לקוחה מוואטסאפ — מציינת שהכי מומלץ ומודה מכל הלב" },
+  { src: "/assets/reviews/text-review-1.png", source: "whatsapp", alt: "המלצת לקוחה ותיקה ברוסית — מציינת מקצועיות גבוהה, תוצאות ועור יפה" },
+];
+
+export type ReviewVideoSource = "instagram" | "facebook";
+
+export type ReviewVideoEmbed = {
+  embedUrl: string;
+  source: ReviewVideoSource;
+  label: string;
+};
+
+export const reviewVideos: ReviewVideoEmbed[] = [
   {
-    name: "מיכל",
-    area: "השרון",
-    quote:
-      "הגעתי אחרי כמה טיפולים שלא התאימו לי. כאן הרגשתי שמקשיבים לעור שלי באמת. התהליך היה רגוע והתוצאה נראית טבעית."
+    embedUrl: "https://www.instagram.com/reel/DVq-NMHCkth/embed/",
+    source: "instagram",
+    label: "רילס אינסטגרם — טיפול אצל זואי קוסמטיקס",
   },
   {
-    name: "יעל",
-    area: "תל אביב",
-    quote:
-      "ההסבר לפני הטיפול נתן לי הרבה ביטחון. לא הייתה תחושה שמוכרים לי משהו, אלא שבונים איתי תוכנית נכונה."
+    embedUrl: "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1644758093173290&show_text=false",
+    source: "facebook",
+    label: "סרטון פייסבוק — טיפול אצל זואי קוסמטיקס",
   },
   {
-    name: "רוני",
-    area: "מרכז",
-    quote:
-      "הקליניקה נעימה, נקייה ומדויקת. אחרי כמה שבועות ראיתי שיפור במרקם ובמיצוק בלי שינוי קיצוני."
-  }
+    embedUrl: "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fwatch%2F%3Fv%3D2009689335771316&show_text=false",
+    source: "facebook",
+    label: "סרטון פייסבוק — המלצת לקוחה",
+  },
+  {
+    embedUrl: "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fwatch%2F%3Fv%3D2009687422438174&show_text=false",
+    source: "facebook",
+    label: "סרטון פייסבוק — המלצת לקוחה",
+  },
 ];
 
 export const results = [

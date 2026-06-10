@@ -1,7 +1,8 @@
 import { ContactPanel } from "@/components/ContactPanel";
 import { JsonLd } from "@/components/JsonLd";
 import { PageIntro } from "@/components/PageIntro";
-import { TestimonialCards } from "@/components/TestimonialCards";
+import { SocialProofGallery } from "@/components/SocialProofGallery";
+import { VideoReviewGallery } from "@/components/VideoReviewGallery";
 import { site } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/schema";
@@ -27,8 +28,11 @@ export default function TestimonialsPage() {
         title="האמון נבנה בפרטים הקטנים: הסבר, הקשבה ותוצאות טבעיות."
         text="המלצות הלקוחות מתמקדות בתחושת הביטחון, בתהליך ובשיפור הדרגתי שנראה אמיתי."
       />
+      <section className="container-page pb-10">
+        <SocialProofGallery />
+      </section>
       <section className="container-page pb-16">
-        <TestimonialCards />
+        <VideoReviewGallery />
       </section>
       <ContactPanel />
     </>

@@ -4,7 +4,7 @@ import { BlogCards } from "@/components/BlogCards";
 import { ButtonLink } from "@/components/ButtonLink";
 import { ContactPanel } from "@/components/ContactPanel";
 import { SectionHeading } from "@/components/SectionHeading";
-import { TestimonialCards } from "@/components/TestimonialCards";
+import { SocialProofGallery } from "@/components/SocialProofGallery";
 import { TreatmentGrid } from "@/components/TreatmentGrid";
 import { series, site, stats, trustItems } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
@@ -168,7 +168,7 @@ export default function Home() {
           title="מילים פשוטות, אמון אמיתי."
           text="המלצות שמדברות על חוויה, הבנה ותהליך מקצועי, לא על קסמים."
         />
-        <TestimonialCards />
+        <SocialProofGallery limit={4} />
         <Link
           className="focus-ring mt-8 inline-flex items-center gap-2 text-[13px] font-semibold tracking-wide text-clay transition hover:text-ink"
           href="/testimonials"
