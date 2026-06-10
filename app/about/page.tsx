@@ -4,7 +4,7 @@ import { ButtonLink } from "@/components/ButtonLink";
 import { JsonLd } from "@/components/JsonLd";
 import { site, trustItems } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
-import { breadcrumbSchema } from "@/lib/schema";
+import { breadcrumbSchema, personSchema } from "@/lib/schema";
 
 export const metadata: Metadata = buildMetadata({
   title: "אודות",
@@ -17,10 +17,13 @@ export default function AboutPage() {
   return (
     <>
       <JsonLd
-        data={breadcrumbSchema([
-          { name: "בית", url: site.url },
-          { name: "אודות", url: `${site.url}/about` }
-        ])}
+        data={[
+          personSchema(),
+          breadcrumbSchema([
+            { name: "בית", url: site.url },
+            { name: "אודות", url: `${site.url}/about` }
+          ])
+        ]}
       />
       <section className="container-page animate-fade-up grid gap-12 py-14 md:grid-cols-[0.95fr_1.05fr] md:py-20">
         <div className="relative aspect-[4/5] overflow-hidden rounded-3xl bg-linen shadow-soft">

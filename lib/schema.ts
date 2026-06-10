@@ -33,7 +33,7 @@ export function localBusinessSchema() {
       { "@type": "City", name: "אשדוד" },
       { "@type": "Country", name: "Israel" }
     ],
-    priceRange: "$$$",
+    priceRange: "₪₪₪",
     currenciesAccepted: "ILS",
     knowsLanguage: ["he-IL", "ru-RU"],
     founder: {
@@ -45,6 +45,20 @@ export function localBusinessSchema() {
     // TODO: add verified geo coordinates, openingHoursSpecification, and a
     // Google Business Profile / Instagram URL in sameAs once confirmed by the
     // business. Do not fabricate hours, coordinates, ratings, or reviews.
+  };
+}
+
+export function personSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": `${site.url}/#cosmetician`,
+    name: site.cosmetician,
+    jobTitle: "קוסמטיקאית מקצועית",
+    description: "קוסמטיקאית מקצועית לטיפולי עור מתקדמים בגישה אישית, נקייה ואחראית.",
+    url: `${site.url}/about`,
+    worksFor: { "@id": businessId },
+    knowsLanguage: ["he-IL", "ru-RU"]
   };
 }
 

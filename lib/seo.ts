@@ -52,7 +52,13 @@ export function buildMetadata({
     ...(title ? { title } : {}),
     description,
     alternates: {
-      canonical: path
+      canonical: path,
+      // Hebrew-only site: every page is its own he / x-default target.
+      // Paths resolve to absolute URLs against the layout's metadataBase.
+      languages: {
+        he: path,
+        "x-default": path
+      }
     },
     openGraph: {
       type,
