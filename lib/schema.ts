@@ -23,8 +23,8 @@ export function localBusinessSchema() {
     logo: absoluteUrl(site.image),
     address: {
       "@type": "PostalAddress",
-      // site.address = "אשדוד, שבט יוסף" (city, street)
-      streetAddress: "שבט יוסף",
+      // Matches the Google Business Profile NAP: "Shevet Yosef St 1/31, Ashdod"
+      streetAddress: "שבט יוסף 1/31",
       addressLocality: "אשדוד",
       addressRegion: "מחוז הדרום",
       addressCountry: "IL"

@@ -13,7 +13,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = buildMetadata({
   description: site.description,
   path: "/",
-  ogTitle: `${site.cosmetician} | טיפולי עור מתקדמים בישראל`
+  ogTitle: `${site.cosmetician} | קוסמטיקאית באשדוד וטיפולי עור מתקדמים`
 });
 
 export default function Home() {
@@ -25,7 +25,7 @@ export default function Home() {
           <div className="mb-6 flex items-center gap-3">
             <span aria-hidden className="block h-px w-8 shrink-0 bg-clay/60" />
             <p className="text-[11px] font-semibold uppercase tracking-widest text-clay">
-              קליניקה קוסמטית מתקדמת בישראל
+              קליניקה קוסמטית מתקדמת באשדוד
             </p>
           </div>
 

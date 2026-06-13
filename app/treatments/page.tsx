@@ -10,7 +10,7 @@ import { breadcrumbSchema } from "@/lib/schema";
 export const metadata = buildMetadata({
   title: "טיפולים",
   description:
-    "סדרות HIFU, RF, פלזמה, מיקרונידלינג, Glow ועור אקנאי — לצד טיפולי פנים קלסיים, הסרת סרחי עור וטיפול אנטי-אייג'ינג הדרגתי.",
+    "סדרות HIFU, RF, פלזמה, מיקרונידלינג, Glow ועור אקנאי — לצד טיפולי פנים קלסיים, הסרת סרחי עור וטיפול אנטי-אייג'ינג הדרגתי, בקליניקה קוסמטית באשדוד.",
   path: "/treatments"
 });
 

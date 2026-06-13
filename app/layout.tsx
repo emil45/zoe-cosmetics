@@ -20,7 +20,7 @@ const heebo = Heebo({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.cosmetician} | קוסמטיקאית מקצועית וטיפולי עור מתקדמים`,
+    default: `${site.cosmetician} | קוסמטיקאית באשדוד וטיפולי עור מתקדמים`,
     template: `%s | ${site.cosmetician}`
   },
   description: site.description,
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: site.locale,
     siteName: site.name,
-    title: `${site.cosmetician} | טיפולי עור מתקדמים בישראל`,
+    title: `${site.cosmetician} | קוסמטיקאית באשדוד וטיפולי עור מתקדמים`,
     description: site.description,
     url: site.url,
     images: [
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.cosmetician} | קוסמטיקה מתקדמת`,
+    title: `${site.cosmetician} | קוסמטיקאית באשדוד`,
     description: site.description,
     images: [site.image]
   },

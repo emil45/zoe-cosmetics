@@ -8,7 +8,7 @@ import { breadcrumbSchema } from "@/lib/schema";
 export const metadata = buildMetadata({
   title: "בלוג",
   description:
-    "מאמרים מקצועיים בעברית על HIFU, RF, טיפולי פנים, שגרת טיפוח, פיגמנטציה ובחירת קוסמטיקאית מקצועית.",
+    "מאמרים מקצועיים בעברית על HIFU, RF, טיפולי פנים, שגרת טיפוח, פיגמנטציה ובחירת קוסמטיקאית מקצועית באשדוד.",
   path: "/blog"
 });
 

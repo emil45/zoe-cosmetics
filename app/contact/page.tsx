@@ -8,7 +8,7 @@ import { breadcrumbSchema } from "@/lib/schema";
 export const metadata = buildMetadata({
   title: "יצירת קשר",
   description:
-    "תיאום טיפול, שיחת התאמה או שליחת הודעה בוואטסאפ לקליניקה קוסמטית מקצועית בישראל.",
+    "תיאום טיפול, שיחת התאמה או שליחת הודעה בוואטסאפ לקליניקה קוסמטית מקצועית באשדוד.",
   path: "/contact"
 });
 

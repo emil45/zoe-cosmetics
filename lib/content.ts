@@ -10,13 +10,13 @@ export const site = {
   name: "קליניקת עור זואי פייסחוב",
   cosmetician: "זואי פייסחוב",
   description:
-    "קליניקה קוסמטית מקצועית בישראל לטיפולי עור מתקדמים, סדרות HIFU, RF, פלזמה, מיקרונידלינג וטיפולי פנים בגישה נקייה, מדויקת ואחראית.",
+    "קליניקה קוסמטית מקצועית באשדוד לטיפולי עור מתקדמים, סדרות HIFU, RF, פלזמה, מיקרונידלינג וטיפולי פנים בגישה נקייה, מדויקת ואחראית.",
   url: getBaseUrl(),
   phone: "052-663-2287",
   phoneHref: "tel:+972526632287",
   whatsapp: "https://wa.me/972526632287",
   email: "zoepes73@gmail.com",
-  address: "אשדוד, שבט יוסף",
+  address: "שבט יוסף 1/31, אשדוד",
   locale: "he_IL",
   image: "/assets/hero.png",
   // Google Analytics 4 Measurement ID. Override per-environment with NEXT_PUBLIC_GA_ID.

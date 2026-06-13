@@ -10,7 +10,7 @@ import { breadcrumbSchema } from "@/lib/schema";
 export const metadata = buildMetadata({
   title: "המלצות",
   description:
-    "חוות דעת והמלצות מלקוחות על טיפולי עור מתקדמים, אבחון מקצועי וחוויית טיפול רגועה ואישית.",
+    "חוות דעת והמלצות מלקוחות על טיפולי עור מתקדמים, אבחון מקצועי וחוויית טיפול רגועה ואישית בקליניקה קוסמטית באשדוד.",
   path: "/testimonials"
 });
 

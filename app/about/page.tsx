@@ -9,7 +9,7 @@ import { breadcrumbSchema, personSchema } from "@/lib/schema";
 export const metadata: Metadata = buildMetadata({
   title: "אודות",
   description:
-    "הכירי את זואי פייסחוב, קוסמטיקאית מקצועית לטיפולי עור מתקדמים בגישה אישית, נקייה ואחראית.",
+    "הכירי את זואי פייסחוב, קוסמטיקאית מקצועית באשדוד לטיפולי עור מתקדמים בגישה אישית, נקייה ואחראית.",
   path: "/about"
 });
 
