@@ -23,7 +23,7 @@ export default function BlogPage() {
       />
       <PageIntro
         eyebrow="בלוג"
-        title="מדריכים קצרים שעוזרים לבחור טיפולי עור בצורה רגועה ומבוססת."
+        title="כל מה שחשוב לדעת על העור שלך — כדי לבחור טיפול בראש שקט."
         text="ידע מקצועי ונגיש על טכנולוגיות, שגרת עור ותהליכים קוסמטיים מתקדמים."
       />
       <section className="container-page pb-16">

@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
@@ -9,6 +11,55 @@ import { buildMetadata } from "@/lib/seo";
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
+
+// Per-post lead image (slug → image). Only posts listed here get a hero image
+// at the top of the article and a custom social/OG share image; every other
+// post keeps the text-only layout and the default branded share card.
+const postImages: Record<string, { src: string; alt: string }> = {
+  "salicylic-acid-during-pregnancy": {
+    src: "/assets/blog-salicylic-pregnancy.jpg",
+    alt: "בקבוק סרום זכוכית מט על משטח פשתן בהיר — אווירת טיפוח עדין בהריון"
+  },
+  "retinol-for-face-guide": {
+    src: "/assets/blog-retinol.jpg",
+    alt: "בקבוק סרום ענבר עם טפטפת באור ערב רך — שגרת רטינול לפנים בלילה"
+  }
+};
+
+// Renders inline markdown-style links `[label](href)` inside post body text.
+// Internal hrefs (starting with "/") use next/link; external links open in a
+// new tab. Plain text passes through untouched.
+function renderRichText(text: string): ReactNode[] {
+  const linkPattern = /\[([^\]]+)\]\(([^)]+)\)/g;
+  const nodes: ReactNode[] = [];
+  let lastIndex = 0;
+  let key = 0;
+  let match: RegExpExecArray | null;
+
+  while ((match = linkPattern.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      nodes.push(text.slice(lastIndex, match.index));
+    }
+    const [, label, href] = match;
+    const className = "focus-ring font-semibold text-olive hover:text-ink";
+    nodes.push(
+      href.startsWith("/") ? (
+        <Link className={className} href={href} key={key++}>
+          {label}
+        </Link>
+      ) : (
+        <a className={className} href={href} key={key++} rel="noreferrer" target="_blank">
+          {label}
+        </a>
+      )
+    );
+    lastIndex = linkPattern.lastIndex;
+  }
+  if (lastIndex < text.length) {
+    nodes.push(text.slice(lastIndex));
+  }
+  return nodes;
+}
 
 export function generateStaticParams() {
   return posts.map((post) => ({ slug: post.slug }));
@@ -22,13 +73,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {};
   }
 
+  const heroImage = postImages[slug];
+
   return buildMetadata({
     title: post.title,
     description: post.excerpt,
     path: `/blog/${post.slug}`,
     type: "article",
     publishedTime: post.date,
-    authors: [post.author]
+    authors: [post.author],
+    image: heroImage?.src,
+    imageAlt: heroImage?.alt
   });
 }
 
@@ -45,12 +100,13 @@ export default async function BlogPostPage({ params }: PageProps) {
     post.relatedTreatmentSlugs.includes(item.slug)
   );
   const relatedPosts = posts.filter((item) => item.slug !== post.slug).slice(0, 3);
+  const heroImage = postImages[post.slug];
 
   return (
     <>
       <JsonLd
         data={[
-          articleSchema(post),
+          articleSchema(post, heroImage?.src),
           faqSchema(post.faqs),
           breadcrumbSchema([
             { name: "בית", url: site.url },
@@ -98,11 +154,25 @@ export default async function BlogPostPage({ params }: PageProps) {
             <span>מאת {post.author}</span>
           </div>
 
+          {heroImage && (
+            <div className="mt-8 overflow-hidden rounded-3xl bg-linen shadow-soft">
+              <Image
+                alt={heroImage.alt}
+                className="w-full object-cover"
+                height={630}
+                priority
+                sizes="(min-width: 1024px) 768px, 100vw"
+                src={heroImage.src}
+                width={1200}
+              />
+            </div>
+          )}
+
           <div className="mt-10 grid gap-10">
             {post.sections.map((section) => (
               <section id={section.id} key={section.id}>
                 <h2 className="text-2xl font-bold text-ink">{section.heading}</h2>
-                <p className="mt-4 text-lg leading-9 text-ink/70">{section.body}</p>
+                <p className="mt-4 text-lg leading-9 text-ink/70">{renderRichText(section.body)}</p>
               </section>
             ))}
           </div>

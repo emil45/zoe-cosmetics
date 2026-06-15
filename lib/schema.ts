@@ -106,7 +106,7 @@ export function serviceSchema(treatment: TreatmentItem) {
   };
 }
 
-export function articleSchema(post: Post) {
+export function articleSchema(post: Post, imageUrl?: string) {
   return {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -115,6 +115,7 @@ export function articleSchema(post: Post) {
     datePublished: post.date,
     dateModified: post.date,
     inLanguage: "he-IL",
+    ...(imageUrl ? { image: absoluteUrl(imageUrl) } : {}),
     author: {
       "@type": "Person",
       name: post.author
