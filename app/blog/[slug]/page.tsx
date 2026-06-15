@@ -23,6 +23,10 @@ const postImages: Record<string, { src: string; alt: string }> = {
   "retinol-for-face-guide": {
     src: "/assets/blog-retinol.jpg",
     alt: "בקבוק סרום ענבר עם טפטפת באור ערב רך — שגרת רטינול לפנים בלילה"
+  },
+  "hifu-vs-rf": {
+    src: "/assets/blog-hifu-vs-rf.jpg",
+    alt: "שני ראשי טיפול של מכשירי מיצוק עור על מיטת קליניקה — HIFU מול RF"
   }
 };
 
@@ -59,6 +63,46 @@ function renderRichText(text: string): ReactNode[] {
     nodes.push(text.slice(lastIndex));
   }
   return nodes;
+}
+
+// Renders a section body into paragraphs and bullet lists. Lines starting with
+// "- " become list items; blank lines separate blocks; everything else is a
+// paragraph. Inline `[label](href)` links are supported within every line.
+// Single-line bodies (the existing posts) render as one paragraph, unchanged.
+function renderBody(text: string): ReactNode[] {
+  const blocks: ReactNode[] = [];
+  let listItems: string[] = [];
+  let key = 0;
+
+  const flushList = () => {
+    if (listItems.length > 0) {
+      const items = listItems;
+      blocks.push(
+        <ul className="grid list-disc gap-2 pr-5 marker:text-clay" key={`ul-${key++}`}>
+          {items.map((item, index) => (
+            <li key={index}>{renderRichText(item)}</li>
+          ))}
+        </ul>
+      );
+      listItems = [];
+    }
+  };
+
+  for (const rawLine of text.split("\n")) {
+    const line = rawLine.trim();
+    if (!line) {
+      flushList();
+      continue;
+    }
+    if (line.startsWith("- ")) {
+      listItems.push(line.slice(2));
+      continue;
+    }
+    flushList();
+    blocks.push(<p key={`p-${key++}`}>{renderRichText(line)}</p>);
+  }
+  flushList();
+  return blocks;
 }
 
 export function generateStaticParams() {
@@ -172,7 +216,9 @@ export default async function BlogPostPage({ params }: PageProps) {
             {post.sections.map((section) => (
               <section id={section.id} key={section.id}>
                 <h2 className="text-2xl font-bold text-ink">{section.heading}</h2>
-                <p className="mt-4 text-lg leading-9 text-ink/70">{renderRichText(section.body)}</p>
+                <div className="mt-4 grid gap-4 text-lg leading-9 text-ink/70">
+                  {renderBody(section.body)}
+                </div>
               </section>
             ))}
           </div>
