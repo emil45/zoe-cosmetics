@@ -9,7 +9,7 @@ import { buildMetadata } from "@/lib/seo";
 import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
 
 const treatmentImages: Record<string, string> = {
-  "skin-tags": "/assets/skin_tags.png",
+  "skin-tags": "/assets/skin_tags.jpg",
   "anti-aging-gradual": "/assets/anti_aging.png",
   "facial-classic": "/assets/facial_classic.png",
   "facial-advanced": "/assets/facial_advanced.png"
