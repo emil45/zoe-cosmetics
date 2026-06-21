@@ -10,9 +10,9 @@ import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
 
 const treatmentImages: Record<string, string> = {
   "skin-tags": "/assets/skin_tags.jpg",
-  "anti-aging-gradual": "/assets/anti_aging.png",
-  "facial-classic": "/assets/facial_classic.png",
-  "facial-advanced": "/assets/facial_advanced.png"
+  "anti-aging-gradual": "/assets/anti_aging.jpg",
+  "facial-classic": "/assets/facial_classic.jpg",
+  "facial-advanced": "/assets/facial_advanced.jpg"
 };
 
 const treatmentVideos: Record<string, string> = {

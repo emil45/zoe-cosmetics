@@ -46,7 +46,7 @@ Metadata (canonical URLs, OG tags, Twitter cards) is built via **`lib/seo.ts`** 
 ### Static assets
 
 All images and videos live in `public/assets/`:
-- Images: `hero.png`, `room.png`, `room_and_logo.png`, `beauty_products.png`, `facial_classic.png`, `facial_advanced.png`, `skin_tags.jpg`, `anti_aging.png`
+- Images (photographic assets are JPEG for size; review screenshots stay PNG for crisp text): `hero.jpg`, `room.jpg`, `room_and_logo.jpg`, `beauty_products.jpg`, `facial_classic.jpg`, `facial_advanced.jpg`, `skin_tags.jpg`, `anti_aging.jpg`
 - Videos: `hifu.mp4`, `face_lab.mp4`, `plasma.mp4`
 
 Treatment detail pages map slugs to images via `treatmentImages` in `app/treatments/[slug]/page.tsx`.

@@ -68,7 +68,7 @@ export default function Home() {
               fill
               priority
               sizes="(min-width: 768px) 46vw, 100vw"
-              src="/assets/hero.png"
+              src="/assets/hero.jpg"
             />
           </div>
         </div>
@@ -185,7 +185,7 @@ export default function Home() {
               className="object-cover"
               fill
               sizes="(min-width: 768px) 44vw, 100vw"
-              src="/assets/beauty_products.png"
+              src="/assets/beauty_products.jpg"
             />
           </div>
           <div className="self-center">

@@ -14,7 +14,7 @@ export function ContactPanel() {
               className="object-cover object-top"
               fill
               sizes="(min-width: 1024px) 44vw, 100vw"
-              src="/assets/room.png"
+              src="/assets/room.jpg"
             />
           </div>
 

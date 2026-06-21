@@ -33,7 +33,7 @@ export default function AboutPage() {
             fill
             priority
             sizes="(min-width: 768px) 44vw, 100vw"
-            src="/assets/room_and_logo.png"
+            src="/assets/room_and_logo.jpg"
           />
         </div>
 

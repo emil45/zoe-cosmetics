@@ -18,7 +18,7 @@ export const site = {
   email: "zoepes73@gmail.com",
   address: "שבט יוסף 1/31, אשדוד",
   locale: "he_IL",
-  image: "/assets/hero.png",
+  image: "/assets/hero.jpg",
   // Google Analytics 4 Measurement ID. Override per-environment with NEXT_PUBLIC_GA_ID.
   gaId: process.env.NEXT_PUBLIC_GA_ID || "G-6LTFW81Z90"
 };
