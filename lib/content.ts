@@ -72,12 +72,12 @@ export type TreatmentItem = {
 
 export const series: TreatmentItem[] = [
   {
-    slug: "sms-lifting",
-    title: "סדרת SMS-ליפטינג",
+    slug: "smas-lifting",
+    title: "סדרת SMAS-ליפטינג",
     short: "סדרה ממוקדת למיצוק והרמת קווי הפנים והגוף באמצעות HIFU, ללא ניתוח וללא זמן התאוששות.",
     details:
       "מיועדת לנשים שמרגישות ירידה בגמישות ורוצות תוצאה מתמשכת, טבעית ומדורגת. הטיפול פועל על שכבות עמוקות של הרקמה ומעודד הפקת קולגן חדש.",
-    keywords: ["HIFU", "SMS ליפטינג", "מיצוק פנים", "מיצוק גוף", "הרמת פנים ללא ניתוח"]
+    keywords: ["HIFU", "SMAS ליפטינג", "SMAS lifting", "מיצוק פנים", "מיצוק גוף", "הרמת פנים ללא ניתוח"]
   },
   {
     slug: "anti-aging-rf",
@@ -343,7 +343,7 @@ export const posts = [
     keywords: ["HIFU", "RF", "HIFU לעומת RF", "מיצוק עור", "מיצוק פנים", "הרמת פנים ללא ניתוח", "RF מיקרונידלינג", "מיצוק עור בלי ניתוח", "טיפול פנים מתקדם", "RF מיצוק"],
     reviewedNote:
       "המאמר מסביר עקרונות כלליים בלבד. התאמה לטיפול מבוסס אנרגיה צריכה להיעשות לפי אבחון אישי, מכשיר ספציפי, הכשרת המטפלת והנחיות בטיחות.",
-    relatedTreatmentSlugs: ["sms-lifting", "anti-aging-rf", "anti-aging-gradual"],
+    relatedTreatmentSlugs: ["smas-lifting", "anti-aging-rf", "anti-aging-gradual"],
     sections: [
       {
         id: "the-dilemma",
@@ -1237,7 +1237,7 @@ export const posts = [
     keywords: ["יציבה ופנים", "צוואר טכנולוגי", "tech neck", "קמטי צוואר", "מנח ראש קדמי", "קו לסת", "הזדקנות הצוואר", "יציבת הגב", "מיצוק צוואר", "אסתטיקת הפנים"],
     reviewedNote:
       "המידע במאמר חינוכי וכללי בלבד. הוא מתאר קשר בין יציבה למראה העור והפנים, אינו אבחון רפואי ואינו מחליף ייעוץ של רופא/ה, פיזיותרפיסט/ית או רופא/ת עור. כאב מתמשך, נימול או שינוי בעור מצריכים בדיקה מקצועית.",
-    relatedTreatmentSlugs: ["sms-lifting", "anti-aging-rf", "anti-aging-gradual"],
+    relatedTreatmentSlugs: ["smas-lifting", "anti-aging-rf", "anti-aging-gradual"],
     sections: [
       {
         id: "posture-face-connection",
