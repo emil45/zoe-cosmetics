@@ -1,20 +1,16 @@
 /**
  * Single source of truth for the site's canonical URL and indexability.
  *
- * The site's permanent home is the production domain below. It is used for all
- * canonical / sitemap / Open Graph / JSON-LD URLs on every deployed build, so
- * those tags are correct from day one — even while the new site is still being
- * previewed on a temporary *.vercel.app URL.
+ * The site is LIVE on the production domain below, used for all canonical /
+ * sitemap / Open Graph / JSON-LD URLs on every deployed build.
  *
- * IMPORTANT — domain migration in progress:
- * zoe-cosmetics.co.il currently still serves the OLD site. The new site is
- * built here and previewed on Vercel. Indexing is therefore decoupled from the
- * URL: nothing is indexable until the explicit go-live switch is flipped at
- * cutover (see isIndexable). This prevents the temporary deployment from being
- * crawled and prevents any clash with the old site that's still on the domain.
+ * Canonical host is the www subdomain: Vercel serves the site on www and
+ * 308-redirects the bare apex (zoe-cosmetics.co.il) to it. A canonical URL must
+ * point at the host that actually returns 200 (www), not the redirecting apex —
+ * otherwise the rel=canonical / sitemap / Host signals fight the redirect.
  */
 
-const PRODUCTION_URL = "https://zoe-cosmetics.co.il";
+const PRODUCTION_URL = "https://www.zoe-cosmetics.co.il";
 
 function stripTrailingSlash(url: string) {
   return url.replace(/\/+$/, "");
@@ -25,15 +21,14 @@ export function getBaseUrl(): string {
   if (process.env.NEXT_PUBLIC_SITE_URL) {
     return stripTrailingSlash(process.env.NEXT_PUBLIC_SITE_URL);
   }
-  // Once live, canonicalize to the real production domain.
+  // Live production: canonicalize to the real production domain.
   if (isIndexable()) {
     return PRODUCTION_URL;
   }
-  // Pre-launch staging on Vercel: use the actual host the site is served from
-  // so canonical/OG/JSON-LD URLs (and the og:image) resolve to reachable files.
-  // (The production domain still serves the OLD site, so pointing there pre-launch
-  // would 404 the share-preview image.) Prefer the stable production *.vercel.app
-  // domain, then the per-deployment preview URL.
+  // Non-production builds (preview deployments / staging): use the actual host
+  // the site is served from so canonical/OG/JSON-LD URLs (and the og:image)
+  // resolve to reachable files. Prefer the stable production *.vercel.app domain,
+  // then the per-deployment preview URL.
   if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
     return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
   }
@@ -45,9 +40,9 @@ export function getBaseUrl(): string {
 }
 
 /**
- * Go-live switch. Stays false (noindex + Disallow) until the new site actually
- * replaces the old one on zoe-cosmetics.co.il. At cutover, set the env var
- * NEXT_PUBLIC_SITE_LIVE=true in Vercel and redeploy to turn indexing on.
+ * Indexability switch. Live in production via NEXT_PUBLIC_SITE_LIVE=true (set in
+ * Vercel). When unset/false the site is noindex + robots Disallow — that's the
+ * desired state for preview/staging deployments so they don't get crawled.
  */
 export function isIndexable(): boolean {
   return process.env.NEXT_PUBLIC_SITE_LIVE === "true";

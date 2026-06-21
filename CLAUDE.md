@@ -56,18 +56,15 @@ Remote images are served from `images.unsplash.com` (configured in `next.config.
 ### Site configuration
 
 Canonical URL + indexability are centralized in **`lib/site-url.ts`**:
-- `getBaseUrl()` — deployed builds canonicalize to the hardcoded production domain `https://zoe-cosmetics.co.il` (override with `NEXT_PUBLIC_SITE_URL`); local dev uses `http://localhost:3000`. Used by every canonical/sitemap/OG/JSON-LD URL.
-- `isIndexable()` — returns `true` **only** when env var `NEXT_PUBLIC_SITE_LIVE === "true"`. Otherwise the whole site is `noindex` + `robots.txt` `Disallow: /`.
+- `getBaseUrl()` — live production canonicalizes to the hardcoded production domain `https://www.zoe-cosmetics.co.il` (override with `NEXT_PUBLIC_SITE_URL`); preview/staging deployments use their Vercel host; local dev uses `http://localhost:3000`. Used by every canonical/sitemap/OG/JSON-LD URL.
+- `isIndexable()` — returns `true` **only** when env var `NEXT_PUBLIC_SITE_LIVE === "true"`. Otherwise the whole site is `noindex` + `robots.txt` `Disallow: /`. This is `true` in production and intentionally left unset on preview deployments.
 
-GA4 (`G-6LTFW81Z90`, `site.gaId`) loads via `@next/third-parties` in the layout, gated to `NODE_ENV === "production"` (deployed builds only). Phone/WhatsApp/email in `lib/content.ts` are placeholders to confirm before launch.
+**Canonical host = www.** Vercel serves on `www.zoe-cosmetics.co.il` and 308-redirects the bare apex to it, so canonical/sitemap/`Host` all use www (a canonical must point at a 200 URL, not the redirecting apex). Keep the apex→www redirect in Vercel.
 
-### ⏳ PENDING — domain go-live (do at cutover, not before)
+GA4 (`G-6LTFW81Z90`, `site.gaId`) loads via `@next/third-parties` in the layout, gated to `NODE_ENV === "production"` (deployed builds only).
 
-`zoe-cosmetics.co.il` currently serves an old placeholder site with no SEO history (the business/site is brand new — nothing to preserve, no redirects needed). This new site is on Vercel staging and is intentionally `noindex` until cutover. **When the new site replaces the old one on the domain:**
-1. Add `zoe-cosmetics.co.il` to this Vercel project as the production domain.
-2. Set **`NEXT_PUBLIC_SITE_LIVE=true`** in Vercel env vars and redeploy. ← this is the entire "switch".
-3. Submit `https://zoe-cosmetics.co.il/sitemap.xml` in Google Search Console.
+### ✅ Site is LIVE
 
-Step 2 is a manual Vercel env change you can do yourself — nothing automatic detects cutover.
+The site is in production on `https://www.zoe-cosmetics.co.il`, indexable (`NEXT_PUBLIC_SITE_LIVE=true` in Vercel). When publishing new content, submit/refresh `https://www.zoe-cosmetics.co.il/sitemap.xml` in Google Search Console so new pages get crawled.
 
 The header is `fixed` (not sticky) — `<main>` should not add `pt-16` globally; each page's first section must have enough top padding to clear the 64px header.

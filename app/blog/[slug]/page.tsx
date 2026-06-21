@@ -27,6 +27,10 @@ const postImages: Record<string, { src: string; alt: string }> = {
   "hifu-vs-rf": {
     src: "/assets/blog-hifu-vs-rf.jpg",
     alt: "שני ראשי טיפול של מכשירי מיצוק עור על מיטת קליניקה — HIFU מול RF"
+  },
+  "posture-and-facial-aesthetics": {
+    src: "/assets/blog-posture.jpg",
+    alt: "פרופיל של אישה עם ראש זקוף וסנטר מורם — קו לסת וצוואר מוגדרים על רקע כהה"
   }
 };
 

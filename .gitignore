@@ -42,3 +42,6 @@ Thumbs.db
 # Raw source assets (large originals and videos — use Cloudinary for videos)
 /assets/
 .vercel
+
+# TS incremental build info
+tsconfig.tsbuildinfo
